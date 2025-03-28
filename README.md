@@ -56,7 +56,7 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement add function in Subscriber repository.`
     -   [x] Commit: `Implement list_all function in Subscriber repository.`
     -   [x] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -77,6 +77,11 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. Dalam konteks BambangShop, penggunaan satu struktur Model `Subscriber` sudah cukup untuk menerapkan pola Observer, karena hanya ada satu model `Product` dengan atribut tipe yang dapat di-subscribe oleh `Subscriber`. Namun, jika ke depannya ada model lain yang juga bisa di-subscribe, maka penggunaan sebuah interface atau trait untuk `Subscriber` akan lebih efektif untuk mendukung fleksibilitas dan skalabilitas sistem.  
+
+2. Penggunaan `DashMap` tetap lebih sesuai dibandingkan `Vec`, meskipun `id` dalam `Product` dan `url` dalam `Subscriber` bersifat unik. Hal ini karena `Subscriber` disimpan berdasarkan product_type dari suatu Product. Jika menggunakan `Vec`, kita harus membuat pemetaan tambahan untuk menghubungkan indeks dengan `product_type`, yang justru menambah kompleksitas. Selain itu, jika `url` disimpan dalam `Vec`, maka saat ada `Subscriber` yang berhenti berlangganan dari suatu product_type, diperlukan pencarian linear untuk menemukannya sebelum dapat dihapus. Dengan `DashMap`, operasi ini dapat dilakukan dalam waktu konstan, meningkatkan efisiensi.  
+
+3. Meskipun pola Singleton dapat diterapkan dalam kasus ini, implementasinya cukup kompleks dalam Rust karena adanya batasan ketat terkait variabel statis dan mutability. Mengingat tujuan utama hanya untuk menyimpan daftar `Subscriber` berdasarkan `product_type`, penggunaan `DashMap` adalah pilihan yang lebih praktis dan efisien dibandingkan harus mengelola kompleksitas tambahan yang muncul dengan Singleton.  
 
 #### Reflection Publisher-2
 

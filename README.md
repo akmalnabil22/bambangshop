@@ -69,7 +69,7 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement notify function in Notification service to notify each Subscriber.`
     -   [x] Commit: `Implement publish function in Program service and Program controller.`
     -   [x] Commit: `Edit Product service methods to call notify after create/delete.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-3" questions in this README.
+    -   [x] Write answers of your learning module's "Reflection Publisher-3" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -91,3 +91,8 @@ This is the place for you to write reflections:
 3. Saya belum mengeksplorasi Postman secara mendalam, tetapi dari pengalaman sejauh ini, alat ini sangat membantu dalam pengujian API. Postman memungkinkan pengiriman berbagai tipe HTTP request seperti `GET`, `POST`, `PUT`, dan `DELETE`, mempermudah pengujian endpoint. Selain itu, fitur untuk menambahkan `Headers` dan `Authorization` sangat berguna, terutama untuk proyek kelompok atau sistem yang memerlukan otentikasi dan custom headers. Secara keseluruhan, Postman menghemat waktu dibandingkan harus membuat skrip pengujian sendiri atau mengandalkan browser untuk menguji API.
 
 #### Reflection Publisher-3
+1. Tutorial ini menerapkan model `Push`, di mana setiap kali terjadi perubahan pada `Product` (publisher), `Subscriber` langsung menerima notifikasi melalui `Notification`. Hal ini terlihat pada `src/service/product.rs`, di mana saat produk dibuat, dihapus, atau dipublikasikan, `NotificationService` akan mengirimkan notifikasi kepada `Subscriber` yang terkait.  
+
+2. Jika menggunakan model `Pull`, keuntungannya adalah server tidak perlu mengirimkan notifikasi ke setiap `Subscriber` setiap kali ada perubahan pada `Product`. Sebagai gantinya, `Subscriber` dapat mengambil data perubahan kapan saja sesuai kebutuhan, sehingga mengurangi beban pada server. Namun, kekurangannya adalah `Subscriber` harus terus-menerus meminta data untuk mengetahui perubahan terbaru, yang bisa menyebabkan permintaan yang tidak perlu jika tidak ada perubahan yang signifikan. Selain itu, `Subscriber` tidak bisa mengetahui perubahan secara real-time karena mereka harus aktif melakukan permintaan data sendiri.
+
+3. Jika proses notifikasi tidak menggunakan multi-threading, maka pengiriman notifikasi ke banyak `Subscriber` akan menjadi lambat dan dapat memblokir proses lain. Hal ini membuat web app tidak bisa menangani request lain selama proses notifikasi berlangsung, yang dapat menurunkan performa sistem. Dengan menggunakan multi-threading, pengiriman notifikasi dapat berjalan secara paralel tanpa menghambat proses lain, sehingga aplikasi tetap responsif dan efisien.

@@ -62,7 +62,7 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement subscribe function in Notification service.`
     -   [x] Commit: `Implement subscribe function in Notification controller.`
     -   [x] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
     -   [ ] Write answers of your learning module's "Reflection Publisher-2" questions in this README.
 -   **STAGE 3: Implement notification mechanism**
     -   [ ] Commit: `Implement update method in Subscriber model to send notification HTTP requests.`
@@ -84,5 +84,10 @@ This is the place for you to write reflections:
 3. Meskipun pola Singleton dapat diterapkan dalam kasus ini, implementasinya cukup kompleks dalam Rust karena adanya batasan ketat terkait variabel statis dan mutability. Mengingat tujuan utama hanya untuk menyimpan daftar `Subscriber` berdasarkan `product_type`, penggunaan `DashMap` adalah pilihan yang lebih praktis dan efisien dibandingkan harus mengelola kompleksitas tambahan yang muncul dengan Singleton.  
 
 #### Reflection Publisher-2
+1. Memisahkan `Service` dan `Repository` dari `Model` penting untuk menerapkan prinsip Single Responsibility. Dengan pemisahan ini, `Model` hanya bertanggung jawab sebagai representasi data, sementara `Repository` menangani penyimpanan data, dan `Service` mengelola business logic. Hal ini membuat kode lebih terorganisir, lebih mudah dipelihara, dan memungkinkan perubahan pada salah satu bagian tanpa mempengaruhi yang lain secara signifikan.  
+
+2. Jika hanya menggunakan `Model`, setiap `Model` akan menjadi lebih kompleks karena harus menangani berbagai tanggung jawab sekaligus, seperti penyimpanan data, business logic, dan interaksi antar objek. Misalnya, `Subscriber` harus menangani subscribe, unsubscribe, serta menerima notifikasi saat ada perubahan `product_type`. Jika semua fungsi ini dimasukkan ke dalam `Model`, kode akan sulit dipahami dan sulit dikelola karena batasan tanggung jawab tiap entity menjadi tidak jelas.  
+
+3. Saya belum mengeksplorasi Postman secara mendalam, tetapi dari pengalaman sejauh ini, alat ini sangat membantu dalam pengujian API. Postman memungkinkan pengiriman berbagai tipe HTTP request seperti `GET`, `POST`, `PUT`, dan `DELETE`, mempermudah pengujian endpoint. Selain itu, fitur untuk menambahkan `Headers` dan `Authorization` sangat berguna, terutama untuk proyek kelompok atau sistem yang memerlukan otentikasi dan custom headers. Secara keseluruhan, Postman menghemat waktu dibandingkan harus membuat skrip pengujian sendiri atau mengandalkan browser untuk menguji API.
 
 #### Reflection Publisher-3
